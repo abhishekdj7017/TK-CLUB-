@@ -1,2 +1,238 @@
-# TK-CLUB-
-MY RUN WEB TO TK CLUB
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>✦ ZIYA PREDICTION ✦</title>
+
+<style>
+html, body { 
+  margin: 0; padding: 0; 
+  height: 100%; width: 100%; 
+  overflow: hidden; 
+  background: linear-gradient(135deg,#0a0f1f,#000000);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-animation {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,215,0,0.08), transparent 60%);
+  animation: pulse 6s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity: .4; }
+  to { opacity: .9; }
+}
+
+.iframe-box {
+  width: 100%; 
+  max-width: 450px; 
+  height: 98%;
+  z-index: 5;
+  background: #000;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid gold;
+  box-shadow: 0 0 40px rgba(255,215,0,.6);
+}
+iframe { width: 100%; height: 100%; border: none; }
+
+.box-container {
+  position: fixed;
+  top: 80px;
+  left: 30px;
+  width: 170px;
+  z-index: 9999;
+}
+
+.box {
+  background: rgba(15,20,40,.95);
+  border-radius: 30px;
+  color: #fff;
+  text-align: center;
+  padding: 15px 8px;
+  box-shadow: 0 0 25px rgba(255,215,0,.4);
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid gold;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(to right, gold, #ffcc00, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 85%;
+  padding: 6px;
+  background: #000;
+  border: 1px solid gold;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+button {
+  width: 90%;
+  padding: 6px 0;
+  border-radius: 20px;
+  border: none;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(90deg, gold, #ff9900);
+  color: #000;
+}
+
+#error {
+  font-size: 10px;
+  color: red;
+  display: none;
+}
+
+.signal-box {
+  background: rgba(255,215,0,.1);
+  border-radius: 20px;
+  padding: 6px;
+}
+
+.signal {
+  font-size: 20px;
+  font-weight: 900;
+  color: gold;
+}
+
+.countdown {
+  font-size: 14px;
+  color: #ffcc00;
+  font-weight: bold;
+}
+</style>
+<link rel="me" href="https://abhishekdj7017.github.io/TK-CLUB/" />
+<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
+<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+</head>
+
+<body>
+
+<div class="bg-animation"></div>
+
+<div class="iframe-box">
+  <iframe src="https://tkclub2.com/#/register?invitationCode=18634220667"></iframe>
+</div>
+
+<div class="box-container">
+  <div class="box">
+    
+    <img src="https://image2url.com/r2/default/images/1771609101371-44f5838c-5223-4610-8e82-300963fc888d.jpg" class="profile-pic">
+    
+    <div class="title">✦ ZIYA PREDICTION ✦</div>
+
+    <div id="passPart">
+      <input type="password" id="password" placeholder="Enter Password">
+      <button onclick="checkPassword()">ACCESS</button>
+      <div id="error">WRONG PASSWORD</div>
+    </div>
+
+    <div id="signalPart" style="display:none;">
+      <div id="currentTime" style="font-size:10px;color:#aaa;">--:--</div>
+      <div class="signal-box">
+        <div style="font-size:9px;color:#ccc;">RESULT</div>
+        <div class="signal" id="predicted">WAIT</div>
+        <div class="countdown"><span id="countdown">30</span>s</div>
+      </div>
+      <div style="font-size:9px;color:#00ff00;margin-top:4px;">ACTIVE</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const PASSWORD = "121314";  // নতুন পাসওয়ার্ড
+let currentInterval = -1;
+
+const passPart = document.getElementById("passPart");
+const signalPart = document.getElementById("signalPart");
+const error = document.getElementById("error");
+const countdown = document.getElementById("countdown");
+const currentTime = document.getElementById("currentTime");
+const predicted = document.getElementById("predicted");
+
+function checkPassword() {
+  const v = document.getElementById("password").value;
+  if (v === PASSWORD) {
+    passPart.style.display = "none";
+    signalPart.style.display = "block";
+    startSignal();
+  } else {
+    error.style.display = "block";
+    setTimeout(()=>error.style.display="none",2000);
+  }
+}
+
+function startSignal() {
+  requestAnimationFrame(loop);
+}
+
+function loop() {
+  const now = new Date();
+  const ms = now.getTime();
+  const id = Math.floor(ms / 30000);
+
+  if (id !== currentInterval) {
+    currentInterval = id;
+    generateSignal();
+  }
+
+  countdown.innerText = Math.ceil(30 - ((ms % 30000) / 1000));
+  currentTime.innerText = now.toLocaleTimeString();
+  requestAnimationFrame(loop);
+}
+
+function generateSignal() {
+
+  const pattern = [
+    "SMALL","SMALL",
+    "BIG","BIG","BIG",
+    "SMALL","SMALL","SMALL","SMALL",
+    "BIG","BIG",
+    "SMALL","SMALL","SMALL",
+    "BIG","BIG","BIG","BIG",
+    "SMALL","SMALL","SMALL","SMALL",
+    "BIG",
+    "SMALL",
+    "BIG",
+    "SMALL",
+    "BIG",
+    "SMALL",
+    "BIG",
+    "SMALL"
+  ];
+
+  const now = new Date();
+  const index = Math.floor(now.getTime() / 30000) % pattern.length;
+
+  predicted.innerText = pattern[index];
+}
+</script>
+
+</body>
+</html>
